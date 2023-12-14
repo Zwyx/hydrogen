@@ -6,6 +6,7 @@ import {
   createCartHandler,
   createStorefrontClient,
   storefrontRedirect,
+  createCustomerClient__unstable,
 } from '@shopify/hydrogen';
 import {
   createRequestHandler,
@@ -52,6 +53,17 @@ export default {
         storefrontHeaders: getStorefrontHeaders(request),
       });
 
+      /**
+       * Create a client for Customer Account API.
+       */
+      const customerAccount = createCustomerClient__unstable({
+        waitUntil,
+        request,
+        session,
+        customerAccountId: env.PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID,
+        customerAccountUrl: env.PUBLIC_CUSTOMER_ACCOUNT_API_URL,
+      });
+
       /*
        * Create a cart handler that will be used to
        * create and update the cart in the session.
@@ -70,7 +82,14 @@ export default {
       const handleRequest = createRequestHandler({
         build: remixBuild,
         mode: process.env.NODE_ENV,
-        getLoadContext: () => ({session, storefront, cart, env, waitUntil}),
+        getLoadContext: () => ({
+          session,
+          storefront,
+          customerAccount,
+          cart,
+          env,
+          waitUntil,
+        }),
       });
 
       const response = await handleRequest(request);
