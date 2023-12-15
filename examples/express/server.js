@@ -116,7 +116,9 @@ class HydrogenSession {
       },
     });
 
-    const session = await storage.getSession(request.get('Cookie'));
+    const session = await storage
+      .getSession(request.get('Cookie'))
+      .catch(() => storage.getSession());
 
     return new this(storage, session);
   }
