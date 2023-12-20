@@ -89,6 +89,31 @@ export type CustomerOrdersQuery = {
   };
 };
 
+export type CustomerUpdateMutationVariables = CustomerAccountAPI.Exact<{
+  customer: CustomerAccountAPI.CustomerUpdateInput;
+}>;
+
+export type CustomerUpdateMutation = {
+  customerUpdate?: CustomerAccountAPI.Maybe<{
+    customer?: CustomerAccountAPI.Maybe<
+      Pick<CustomerAccountAPI.Customer, 'firstName' | 'lastName'> & {
+        emailAddress?: CustomerAccountAPI.Maybe<
+          Pick<CustomerAccountAPI.CustomerEmailAddress, 'emailAddress'>
+        >;
+        phoneNumber?: CustomerAccountAPI.Maybe<
+          Pick<CustomerAccountAPI.CustomerPhoneNumber, 'phoneNumber'>
+        >;
+      }
+    >;
+    userErrors: Array<
+      Pick<
+        CustomerAccountAPI.UserErrorsCustomerUserErrors,
+        'code' | 'field' | 'message'
+      >
+    >;
+  }>;
+};
+
 interface GeneratedQueryTypes {
   '#graphql\n  query CustomerDetails {\n    customer {\n      ...Customer\n    }\n  }\n  #graphql\n  fragment Customer on Customer {\n    firstName\n    lastName\n    emailAddress {\n      emailAddress\n    }\n    phoneNumber {\n      phoneNumber\n    }\n  }\n\n': {
     return: CustomerDetailsQuery;
@@ -100,7 +125,12 @@ interface GeneratedQueryTypes {
   };
 }
 
-interface GeneratedMutationTypes {}
+interface GeneratedMutationTypes {
+  '#graphql\n  # https://shopify.dev/docs/api/customer/latest/mutations/customerUpdate\n  mutation customerUpdate(\n    $customer: CustomerUpdateInput!\n  ){\n    customerUpdate(input: $customer) {\n      customer {\n        firstName\n        lastName\n        emailAddress {\n          emailAddress\n        }\n        phoneNumber {\n          phoneNumber\n        }\n      }\n      userErrors {\n        code\n        field\n        message\n      }\n    }\n  }\n': {
+    return: CustomerUpdateMutation;
+    variables: CustomerUpdateMutationVariables;
+  };
+}
 
 declare module '@shopify/hydrogen' {
   interface CustomerAccountQueries extends GeneratedQueryTypes {}
