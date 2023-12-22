@@ -1,5 +1,20 @@
 # @shopify/hydrogen
 
+## 2023.10.4
+
+### Patch Changes
+
+- Fix type when passing custom methods to `createCartHandler`. ([#1588](https://github.com/Shopify/hydrogen/pull/1588)) by [@frandiox](https://github.com/frandiox)
+
+- The `customerAccount` client now supports codegen types similar to the `storefront` client. ([#1587](https://github.com/Shopify/hydrogen/pull/1587)) by [@frandiox](https://github.com/frandiox)
+
+- ✨ add schema generation for customer account api in hydrogen-react and export these types in both hydrogen-react & hydrogen. Note the current CA API version is `2024-01` which is a release candidate and subject to change. ([#1572](https://github.com/Shopify/hydrogen/pull/1572)) by [@michenly](https://github.com/michenly)
+
+- 🐛 fix content security policy for local enviorment for not recognizing localhost asset server as a valid policy ([#1591](https://github.com/Shopify/hydrogen/pull/1591)) by [@michenly](https://github.com/michenly)
+
+- Updated dependencies [[`d6d01322`](https://github.com/Shopify/hydrogen/commit/d6d01322b430761c6ac3be71aa8fee798c85de37)]:
+  - @shopify/hydrogen-react@2023.10.2
+
 ## 2023.10.3
 
 ### Patch Changes

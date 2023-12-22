@@ -1,5 +1,22 @@
 # @shopify/cli-hydrogen
 
+## 6.2.0
+
+### Minor Changes
+
+- When generating Codegen, the CLI now looks first at the project GraphQL config (e.g. `.graphqlrc.yml` file) to find the documents for the Storefront API schema. ([#1577](https://github.com/Shopify/hydrogen/pull/1577)) by [@frandiox](https://github.com/frandiox)
+
+### Patch Changes
+
+- Enhance startup time of CLI when using `--worker` runtime. ([#1560](https://github.com/Shopify/hydrogen/pull/1560)) by [@frandiox](https://github.com/frandiox)
+
+- Update cli-kit dependency for bug fixes. ([#1579](https://github.com/Shopify/hydrogen/pull/1579)) by [@frandiox](https://github.com/frandiox)
+
+- Run prettier in all the generated codegen files that use the Hydrogen preset, not only for Storefront API. ([#1578](https://github.com/Shopify/hydrogen/pull/1578)) by [@frandiox](https://github.com/frandiox)
+
+- Updated dependencies [[`9ad7c5ef`](https://github.com/Shopify/hydrogen/commit/9ad7c5efee8bff63760b36a1a7c194f6bb8e07e5), [`306d302a`](https://github.com/Shopify/hydrogen/commit/306d302ab401f22e5317fd84587c6a37cf931912), [`3f3b8dbe`](https://github.com/Shopify/hydrogen/commit/3f3b8dbe8a72080791125154a71168a419c9ad13)]:
+  - @shopify/hydrogen-codegen@0.2.0
+
 ## 6.1.0
 
 ### Minor Changes
