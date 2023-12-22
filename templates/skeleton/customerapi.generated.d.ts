@@ -3,17 +3,120 @@
 /* eslint-disable */
 import * as CustomerAccountAPI from '@shopify/hydrogen/customer-account-api-types';
 
+export type CustomerAddressUpdateMutationVariables = CustomerAccountAPI.Exact<{
+  address: CustomerAccountAPI.CustomerAddressInput;
+  addressId: CustomerAccountAPI.Scalars['ID']['input'];
+  defaultAddress?: CustomerAccountAPI.InputMaybe<
+    CustomerAccountAPI.Scalars['Boolean']['input']
+  >;
+}>;
+
+export type CustomerAddressUpdateMutation = {
+  customerAddressUpdate?: CustomerAccountAPI.Maybe<{
+    customerAddress?: CustomerAccountAPI.Maybe<
+      Pick<CustomerAccountAPI.CustomerAddress, 'id'>
+    >;
+  }>;
+};
+
+export type CustomerAddressDeleteMutationVariables = CustomerAccountAPI.Exact<{
+  addressId: CustomerAccountAPI.Scalars['ID']['input'];
+}>;
+
+export type CustomerAddressDeleteMutation = {
+  customerAddressDelete?: CustomerAccountAPI.Maybe<
+    Pick<
+      CustomerAccountAPI.CustomerAddressDeletePayload,
+      'deletedAddressId'
+    > & {
+      userErrors: Array<
+        Pick<
+          CustomerAccountAPI.UserErrorsCustomerAddressUserErrors,
+          'code' | 'field' | 'message'
+        >
+      >;
+    }
+  >;
+};
+
+export type CustomerAddressCreateMutationVariables = CustomerAccountAPI.Exact<{
+  address: CustomerAccountAPI.CustomerAddressInput;
+  defaultAddress?: CustomerAccountAPI.InputMaybe<
+    CustomerAccountAPI.Scalars['Boolean']['input']
+  >;
+}>;
+
+export type CustomerAddressCreateMutation = {
+  customerAddressCreate?: CustomerAccountAPI.Maybe<{
+    customerAddress?: CustomerAccountAPI.Maybe<
+      Pick<CustomerAccountAPI.CustomerAddress, 'id'>
+    >;
+    userErrors: Array<
+      Pick<
+        CustomerAccountAPI.UserErrorsCustomerAddressUserErrors,
+        'code' | 'field' | 'message'
+      >
+    >;
+  }>;
+};
+
 export type CustomerFragment = Pick<
   CustomerAccountAPI.Customer,
   'firstName' | 'lastName'
 > & {
-  emailAddress?: CustomerAccountAPI.Maybe<
-    Pick<CustomerAccountAPI.CustomerEmailAddress, 'emailAddress'>
+  defaultAddress?: CustomerAccountAPI.Maybe<
+    Pick<
+      CustomerAccountAPI.CustomerAddress,
+      | 'id'
+      | 'formatted'
+      | 'firstName'
+      | 'lastName'
+      | 'company'
+      | 'address1'
+      | 'address2'
+      | 'territoryCode'
+      | 'zoneCode'
+      | 'city'
+      | 'zip'
+      | 'phoneNumber'
+    >
   >;
-  phoneNumber?: CustomerAccountAPI.Maybe<
-    Pick<CustomerAccountAPI.CustomerPhoneNumber, 'phoneNumber'>
-  >;
+  addresses: {
+    nodes: Array<
+      Pick<
+        CustomerAccountAPI.CustomerAddress,
+        | 'id'
+        | 'formatted'
+        | 'firstName'
+        | 'lastName'
+        | 'company'
+        | 'address1'
+        | 'address2'
+        | 'territoryCode'
+        | 'zoneCode'
+        | 'city'
+        | 'zip'
+        | 'phoneNumber'
+      >
+    >;
+  };
 };
+
+export type AddressFragment = Pick<
+  CustomerAccountAPI.CustomerAddress,
+  | 'id'
+  | 'formatted'
+  | 'firstName'
+  | 'lastName'
+  | 'company'
+  | 'address1'
+  | 'address2'
+  | 'territoryCode'
+  | 'zoneCode'
+  | 'city'
+  | 'zip'
+  | 'phoneNumber'
+>;
 
 export type CustomerDetailsQueryVariables = CustomerAccountAPI.Exact<{
   [key: string]: never;
@@ -21,12 +124,42 @@ export type CustomerDetailsQueryVariables = CustomerAccountAPI.Exact<{
 
 export type CustomerDetailsQuery = {
   customer: Pick<CustomerAccountAPI.Customer, 'firstName' | 'lastName'> & {
-    emailAddress?: CustomerAccountAPI.Maybe<
-      Pick<CustomerAccountAPI.CustomerEmailAddress, 'emailAddress'>
+    defaultAddress?: CustomerAccountAPI.Maybe<
+      Pick<
+        CustomerAccountAPI.CustomerAddress,
+        | 'id'
+        | 'formatted'
+        | 'firstName'
+        | 'lastName'
+        | 'company'
+        | 'address1'
+        | 'address2'
+        | 'territoryCode'
+        | 'zoneCode'
+        | 'city'
+        | 'zip'
+        | 'phoneNumber'
+      >
     >;
-    phoneNumber?: CustomerAccountAPI.Maybe<
-      Pick<CustomerAccountAPI.CustomerPhoneNumber, 'phoneNumber'>
-    >;
+    addresses: {
+      nodes: Array<
+        Pick<
+          CustomerAccountAPI.CustomerAddress,
+          | 'id'
+          | 'formatted'
+          | 'firstName'
+          | 'lastName'
+          | 'company'
+          | 'address1'
+          | 'address2'
+          | 'territoryCode'
+          | 'zoneCode'
+          | 'city'
+          | 'zip'
+          | 'phoneNumber'
+        >
+      >;
+    };
   };
 };
 
@@ -115,7 +248,7 @@ export type CustomerUpdateMutation = {
 };
 
 interface GeneratedQueryTypes {
-  '#graphql\n  query CustomerDetails {\n    customer {\n      ...Customer\n    }\n  }\n  #graphql\n  fragment Customer on Customer {\n    firstName\n    lastName\n    emailAddress {\n      emailAddress\n    }\n    phoneNumber {\n      phoneNumber\n    }\n  }\n\n': {
+  '#graphql\n  query CustomerDetails {\n    customer {\n      ...Customer\n    }\n  }\n  #graphql\n  fragment Customer on Customer {\n    firstName\n    lastName\n    defaultAddress {\n      ...Address\n    }\n    addresses(first: 6) {\n      nodes {\n        ...Address\n      }\n    }\n  }\n  fragment Address on CustomerAddress {\n    id\n    formatted\n    firstName\n    lastName\n    company\n    address1\n    address2\n    territoryCode\n    zoneCode\n    city\n    zip\n    phoneNumber\n  }\n\n': {
     return: CustomerDetailsQuery;
     variables: CustomerDetailsQueryVariables;
   };
@@ -126,6 +259,18 @@ interface GeneratedQueryTypes {
 }
 
 interface GeneratedMutationTypes {
+  '#graphql\n  mutation customerAddressUpdate(\n    $address: CustomerAddressInput!\n    $addressId: ID!\n    $defaultAddress: Boolean\n ) {\n    customerAddressUpdate(\n      address: $address\n      addressId: $addressId\n      defaultAddress: $defaultAddress\n    ) {\n      customerAddress {\n        id\n      }\n    }\n  }\n': {
+    return: CustomerAddressUpdateMutation;
+    variables: CustomerAddressUpdateMutationVariables;
+  };
+  '#graphql\n  mutation customerAddressDelete(\n    $addressId: ID!,\n  ) {\n    customerAddressDelete(addressId: $addressId) {\n      deletedAddressId\n      userErrors {\n        code\n        field\n        message\n      }\n    }\n  }\n': {
+    return: CustomerAddressDeleteMutation;
+    variables: CustomerAddressDeleteMutationVariables;
+  };
+  '#graphql\n  mutation customerAddressCreate(\n    $address: CustomerAddressInput!\n    $defaultAddress: Boolean\n  ) {\n    customerAddressCreate(\n      address: $address\n      defaultAddress: $defaultAddress\n    ) {\n      customerAddress {\n        id\n      }\n      userErrors {\n        code\n        field\n        message\n      }\n    }\n  }\n': {
+    return: CustomerAddressCreateMutation;
+    variables: CustomerAddressCreateMutationVariables;
+  };
   '#graphql\n  # https://shopify.dev/docs/api/customer/latest/mutations/customerUpdate\n  mutation customerUpdate(\n    $customer: CustomerUpdateInput!\n  ){\n    customerUpdate(input: $customer) {\n      customer {\n        firstName\n        lastName\n        emailAddress {\n          emailAddress\n        }\n        phoneNumber {\n          phoneNumber\n        }\n      }\n      userErrors {\n        code\n        field\n        message\n      }\n    }\n  }\n': {
     return: CustomerUpdateMutation;
     variables: CustomerUpdateMutationVariables;

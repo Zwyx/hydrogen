@@ -1,13 +1,30 @@
+// NOTE: https://shopify.dev/docs/api/customer/latest/objects/Customer
 export const CUSTOMER_FRAGMENT = `#graphql
   fragment Customer on Customer {
     firstName
     lastName
-    emailAddress {
-      emailAddress
+    defaultAddress {
+      ...Address
     }
-    phoneNumber {
-      phoneNumber
+    addresses(first: 6) {
+      nodes {
+        ...Address
+      }
     }
+  }
+  fragment Address on CustomerAddress {
+    id
+    formatted
+    firstName
+    lastName
+    company
+    address1
+    address2
+    territoryCode
+    zoneCode
+    city
+    zip
+    phoneNumber
   }
 ` as const;
 
